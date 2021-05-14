@@ -1,0 +1,103 @@
+{
+    "type": "project",
+    "name": "about-you/product-api",
+    "description": "Provides an api to handle products.",
+    "license": "proprietary",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^8.0",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "api-platform/core": "^2.6",
+        "composer/package-versions-deprecated": "1.11.99.1",
+        "doctrine/annotations": "^1.0",
+        "doctrine/doctrine-bundle": "^2.3",
+        "doctrine/doctrine-migrations-bundle": "^3.1",
+        "doctrine/orm": "^2.8",
+        "gesdinet/jwt-refresh-token-bundle": "^0.12.0",
+        "guzzlehttp/psr7": "^1.8",
+        "http-interop/http-factory-guzzle": "^1.0",
+        "jane-php/open-api-runtime": "^6.3",
+        "league/csv": "^9.7",
+        "lexik/jwt-authentication-bundle": "^2.11",
+        "nelmio/cors-bundle": "^2.1",
+        "php-http/guzzle7-adapter": "^1.0",
+        "phpdocumentor/reflection-docblock": "^5.2",
+        "phpseclib/phpseclib": "^3.0",
+        "ramsey/uuid": "^4.1",
+        "ramsey/uuid-doctrine": "^1.6",
+        "rewieer/taskschedulerbundle": "^0.8.0",
+        "symfony/asset": "5.2.*",
+        "symfony/console": "5.2.*",
+        "symfony/dotenv": "5.2.*",
+        "symfony/expression-language": "5.2.*",
+        "symfony/flex": "^1.3.1",
+        "symfony/framework-bundle": "5.2.*",
+        "symfony/messenger": "5.2.*",
+        "symfony/monolog-bundle": "^3.7",
+        "symfony/property-access": "5.2.*",
+        "symfony/property-info": "5.2.*",
+        "symfony/proxy-manager-bridge": "5.2.*",
+        "symfony/security-bundle": "5.2.*",
+        "symfony/serializer": "5.2.*",
+        "symfony/twig-bundle": "5.2.*",
+        "symfony/validator": "5.2.*",
+        "symfony/yaml": "5.2.*",
+        "webonyx/graphql-php": "^14.6"
+    },
+    "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "hautelook/alice-bundle": "^2.9",
+        "jane-php/open-api-3": "^6.3",
+        "phpstan/phpstan": "^0.12.85",
+        "phpunit/phpunit": "^9.5",
+        "symfony/maker-bundle": "^1.30",
+        "symfony/stopwatch": "^5.2",
+        "symfony/web-profiler-bundle": "^5.2"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php72": "*"
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ]
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "5.2.*"
+        }
+    }
+}
