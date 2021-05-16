@@ -7,13 +7,9 @@ namespace App\Entity;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\PriceTrait;
 use App\Entity\Traits\TimestampableTrait;
-use DateTime;
-use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
@@ -23,34 +19,28 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Product
 {
-    use IdTrait, PriceTrait, TimestampableTrait;
+    use IdTrait;
+    use PriceTrait;
+    use TimestampableTrait;
 
     /**
      * @ORM\Column(type="string", length=64, unique=true)
      * @Gedmo\Slug(fields={"name"})
-     *
-     * @var string|null
      */
     private ?string $slug = null;
 
     /**
      * @ORM\Column(type="string")
-     *
-     * @var string|null
      */
     private ?string $name = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     *
-     * @var string|null
      */
     private ?string $shortDescription = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     *
-     * @var string|null
      */
     private ?string $description = null;
 
@@ -77,65 +67,41 @@ class Product
         $this->stations = new ArrayCollection();
     }
 
-    /**
-     * @return string|null
-     */
     public function getSlug(): ?string
     {
         return $this->slug;
     }
 
-    /**
-     * @param string|null $slug
-     */
     public function setSlug(?string $slug): void
     {
         $this->slug = $slug;
     }
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string|null $name
-     */
     public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return string|null
-     */
     public function getShortDescription(): ?string
     {
         return $this->shortDescription;
     }
 
-    /**
-     * @param string|null $shortDescription
-     */
     public function setShortDescription(?string $shortDescription): void
     {
         $this->shortDescription = $shortDescription;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param string|null $description
-     */
     public function setDescription(?string $description): void
     {
         $this->description = $description;
@@ -149,6 +115,9 @@ class Product
         return $this->categories;
     }
 
+    /**
+     * @param Collection<int, Category> $categories
+     */
     public function setCategories(iterable $categories): void
     {
         $this->categories->clear();
@@ -177,6 +146,9 @@ class Product
         return $this->stations;
     }
 
+    /**
+     * @param Collection<int, Station> $stations
+     */
     public function setStations(iterable $stations): void
     {
         $this->stations->clear();

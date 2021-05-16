@@ -18,12 +18,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Station
 {
-    use IdTrait, TimestampableTrait;
+    use IdTrait;
+    use TimestampableTrait;
 
     /**
      * @ORM\Column(type="string")
      *
-     * @var string|null
      * @Assert\NotBlank
      */
     private ?string $name = null;
@@ -65,33 +65,21 @@ class Station
         $this->createdAt = new DateTime('now');
     }
 
-    /**
-     * @return int|null
-     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @param int|null $id
-     */
     public function setId(?int $id): void
     {
         $this->id = $id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string|null $name
-     */
     public function setName(?string $name): void
     {
         $this->name = $name;
@@ -105,7 +93,7 @@ class Station
         return $this->products;
     }
 
-    public function addProduct(Product $product)
+    public function addProduct(Product $product): void
     {
         if (!$this->products->contains($product)) {
             $this->products->add($product);
@@ -136,14 +124,14 @@ class Station
         return $this->pickupOrders;
     }
 
-    public function addPickupOrder(Order $order)
+    public function addPickupOrder(Order $order): void
     {
         if (!$this->pickupOrders->contains($order)) {
             $this->pickupOrders->add($order);
         }
     }
 
-    public function removePickupOrder(Order $order)
+    public function removePickupOrder(Order $order): void
     {
         $this->pickupOrders->removeElement($order);
     }
@@ -156,14 +144,14 @@ class Station
         return $this->returnOrders;
     }
 
-    public function addReturnOrder(Order $order)
+    public function addReturnOrder(Order $order): void
     {
         if (!$this->returnOrders->contains($order)) {
             $this->returnOrders->add($order);
         }
     }
 
-    public function removeReturnOrder(Order $order)
+    public function removeReturnOrder(Order $order): void
     {
         $this->returnOrders->removeElement($order);
     }

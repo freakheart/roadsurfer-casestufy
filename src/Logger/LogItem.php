@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Logger;
 
-use Exception;
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerAwareTrait;
-use Symfony\Component\HttpFoundation\Request;
 use function debug_backtrace;
+use Exception;
 use function get_object_vars;
 use function implode;
 use function json_encode;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 use function str_replace;
+use Symfony\Component\HttpFoundation\Request;
 use function time;
 
 class LogItem implements LoggerAwareInterface

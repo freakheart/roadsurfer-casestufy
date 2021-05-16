@@ -14,7 +14,6 @@ use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Generator;
-use Hautelook\AliceBundle\Functional\TestBundle\Entity\Prod;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
@@ -28,7 +27,7 @@ class AppFixtures extends Fixture
         $this->generator = $generator;
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->loadUsers($manager);
         $this->loadStations($manager);
@@ -59,7 +58,7 @@ class AppFixtures extends Fixture
 
     private function loadStations(ObjectManager $manager): void
     {
-        for ($i=0;$i<20;$i++) {
+        for ($i = 0; $i < 20; ++$i) {
             $station = new Station();
             $station->setName($this->generator->city);
 
@@ -105,7 +104,7 @@ class AppFixtures extends Fixture
             $this->addReference('product-'.$key, $product);
         }*/
 
-        for ($i=0;$i<20;$i++) {
+        for ($i = 0; $i < 20; ++$i) {
             $product = new Product();
             $product->setName($this->generator->text(10));
             $product->setShortDescription($this->generator->text(100));
@@ -122,7 +121,7 @@ class AppFixtures extends Fixture
 
     private function loadCustomers(ObjectManager $manager): void
     {
-        for ($i=0;$i<20;$i++) {
+        for ($i = 0; $i < 20; ++$i) {
             $gender = $this->generator->randomElement(['male', 'female']);
 
             $address = new Address();
@@ -152,7 +151,7 @@ class AppFixtures extends Fixture
 
     private function loadOffers(ObjectManager $manager): void
     {
-        for ($i=0;$i<20;$i++) {
+        for ($i = 0; $i < 20; ++$i) {
             $offer = new Offer();
             $offer->setStock($this->generator->numberBetween(100, 200));
             $offer->setPrice($this->generator->randomFloat());
@@ -167,7 +166,7 @@ class AppFixtures extends Fixture
 
     private function loadOrders(ObjectManager $manager): void
     {
-        for ($i=0;$i<20;$i++) {
+        for ($i = 0; $i < 20; ++$i) {
             $product = $this->getReference('product-'.$i);
             $orderItem = new OrderItem();
             $orderItem->setProduct($product);
@@ -207,7 +206,7 @@ class AppFixtures extends Fixture
             'Munich',
             'Paris',
             'Porto',
-            'Madrid'
+            'Madrid',
         ];
     }
 
@@ -219,7 +218,7 @@ class AppFixtures extends Fixture
             'Bed Sheets',
             'Sleeping Bags',
             'Camping Tables',
-            'Chairs'
+            'Chairs',
         ];
     }
 
@@ -232,92 +231,91 @@ class AppFixtures extends Fixture
                 'Beach Hostel Deluxe VW T6.1 California Beach',
                 '150 hp diesel / DCT automation, Cooler box & small gas cooker, Manual pop-up roof, Three-seat rear bench, 2 front swivel seats, Stationary heating via air, Park-assist and rear camera, Awning Cruise and distance control, GPS',
                 90.00,
-                $this->getReference('category-Campervans')
+                $this->getReference('category-Campervans'),
             ],
             [
                 'VW T6 California Hire',
                 'Surfer Suite VW T6.1 California Ocean',
                 '150 hp / diesel / DCT automation, Integrated kitchen, Automatic pop-up roof, Outdoor shower (cold), 2 front swivel seats, Stationary heating via air, Park-assist and rear camera, Awning Cruise and distance control, GPS',
                 105.00,
-                $this->getReference('category-Campervans')
-
+                $this->getReference('category-Campervans'),
             ],
             [
                 'Bürstner Eliseo Hire',
                 'Road House Eliseo Bürstner Eliseo',
                 '140 hp diesel / 9-speed automatic, Bathroom with shower (warm/cold) & toilet, Living & sleeping are directly accessible, Spacious kitchen, Manual pop-up roof Air heating, Awning Park-assist, Tempomat, GPS',
                 129.00,
-                $this->getReference('category-Campervans')
+                $this->getReference('category-Campervans'),
             ],
             [
                 'TOI WATER UP',
                 'TOI WATER UP Portable toilet',
                 'Hand wash basin, WC & Urinal, Hand disinfection dispenser, LED light & ventilator',
                 50.00,
-                $this->getReference('category-Portable Toilets')
+                $this->getReference('category-Portable Toilets'),
             ],
             [
                 'DIXI PLUS WASH',
                 'DIXI PLUS WASH Portable toilet',
                 'Compact hand wash basin, Soap dispenser and paper towels, High user-friendliness due to ergonomic design',
                 65.00,
-                $this->getReference('category-Portable Toilets')
+                $this->getReference('category-Portable Toilets'),
             ],
             [
                 'Cotton Rich Sheet',
                 '',
                 '',
                 5.00,
-                $this->getReference('category-Bed Sheets')
+                $this->getReference('category-Bed Sheets'),
             ],
             [
                 'Ruikasi multicoloured microfiber bed linen',
                 'Ruikasi multicoloured microfiber bed linen',
                 '',
                 10.00,
-                $this->getReference('category-Bed Sheets')
+                $this->getReference('category-Bed Sheets'),
             ],
             [
                 'Temperature Connectable Breathable Sleeping Bag',
                 'High Peak TR 300 Sleeping Bag',
                 'Extra Wide, 3-4 Seasons, Temperature 0°C, Warm, Pack Bag, Connectable, For Camping, Festivals, Trekking, Breathable, Skin-friendly, Water-Repellent',
                 8.00,
-                $this->getReference('category-Sleeping Bags')
+                $this->getReference('category-Sleeping Bags'),
             ],
             [
                 'Bessport Mountaineering Ultra Light Ultra Compact Spray Bound',
                 'Bessport Winter Sleeping Bag',
                 '−9 and 0 ℃, Outdoor Mummy Sleeping Bag for Camping and Mountaineering with Ultra-Light and Ultra-Compact 100% Spray-Bound Cotton 400 g/m² Filling',
                 12.00,
-                $this->getReference('category-Sleeping Bags')
+                $this->getReference('category-Sleeping Bags'),
             ],
             [
                 'KingCamp 4 Folds Bamboo Camping Table',
                 'KingCamp 4 Folds Bamboo Camping Table',
                 'KingCamp 4 Folds Bamboo Camping Table, 3 Höhen 100 × 65 × 45 / 52 / 65 Cm, Folding Table Aluminium Frame 2–6 People',
                 15.00,
-                $this->getReference('category-Camping Tables')
+                $this->getReference('category-Camping Tables'),
             ],
             [
                 'Advanced Aluminium Foldable Lightweight Portable',
                 'Ever Advanced Camping Table',
                 'Ever Advanced Camping Table, Folding Table with Aluminium Table Top, Foldable, Lightweight, Portable, with Carry Bag, for 4 People, 70 x 70 cm',
                 20.00,
-                $this->getReference('category-Camping Tables')
+                $this->getReference('category-Camping Tables'),
             ],
             [
                 'Nexos Premium Folding Recliner Camping',
                 'Nexos Set of 2 Premium Folding Chair Recliner Camping Chair',
                 'Nexos Set of 2 Premium Folding Chair Recliner Camping Chair – for Garden Terrace Balcony – Folding Garden Chair Padded Aluminium – Black Grey',
                 15.00,
-                $this->getReference('category-Chairs')
+                $this->getReference('category-Chairs'),
             ],
             [
                 'SONGMICS Camping Folding Armrests',
                 'SONGMICS Camping Folding Armrests',
                 'SONGMICS Camping Chairs Set of 2 Folding Chairs Outdoor Chairs with Armrests and Cup Holder Sturdy Frame Holds up to 120 kg Green',
                 10.00,
-                $this->getReference('category-Chairs')
+                $this->getReference('category-Chairs'),
             ],
         ];
     }
@@ -325,7 +323,6 @@ class AppFixtures extends Fixture
     private function getOrdersData(): array
     {
         return [
-
         ];
     }
 }

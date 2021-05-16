@@ -15,12 +15,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Category
 {
-    use IdTrait, TimestampableTrait;
+    use IdTrait;
+    use TimestampableTrait;
 
     /**
      * @ORM\Column(type="string", length=64)
-     *
-     * @var string|null
      */
     private ?string $name = null;
 
@@ -29,17 +28,11 @@ class Category
         $this->createdAt = new DateTime('now');
     }
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string|null $name
-     */
     public function setName(?string $name): void
     {
         $this->name = $name;
