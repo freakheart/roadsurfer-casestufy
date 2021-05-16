@@ -1,0 +1,16 @@
+App\Entity\Offer:
+  attributes:
+    id:
+      groups: ['offer']
+    price:
+      groups: ['offer']
+    stock:
+      groups: ['offer']
+    product:
+      groups: ['offer']
+    station:
+      groups: ['offer']
+    createdAt:
+      groups: [ 'offer' ]
+    updatedAt:
+      groups: [ 'offer' ]

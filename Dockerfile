@@ -9,7 +9,7 @@ ARG NGINX_VERSION=1.17
 ARG VARNISH_VERSION=6.4
 
 # "php" stage
-FROM php:${PHP_VERSION}-fpm-alpine AS target_product_php
+FROM php:${PHP_VERSION}-fpm-alpine AS target_php
 
 # persistent / runtime deps
 RUN apk add --no-cache \
@@ -78,10 +78,6 @@ RUN set -eux; \
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-# add supervisor
-RUN mkdir -p /var/log/supervisor
-COPY ./docker/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
 # install Symfony Flex globally to speed up download of Composer packages (parallelized prefetching)
 RUN set -eux; \
 	composer global require "symfony/flex" --prefer-dist --no-progress --no-suggest --classmap-authoritative; \
@@ -114,13 +110,13 @@ CMD ["php-fpm"]
 
 # "nginx" stage
 # depends on the "php" stage above
-FROM nginx:${NGINX_VERSION}-alpine AS target_product_nginx
+FROM nginx:${NGINX_VERSION}-alpine AS target_nginx
 
 COPY docker/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 
 WORKDIR /srv/app
 
-COPY --from=target_product_php /srv/app/public public/
+COPY --from=target_php /srv/app/public public/
 
 # "varnish" stage
 # does not depend on any of the above stages, but placed here to keep everything in one Dockerfile

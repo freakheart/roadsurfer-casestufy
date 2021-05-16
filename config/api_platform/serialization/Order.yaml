@@ -1,0 +1,26 @@
+App\Entity\Order:
+  attributes:
+    id:
+      groups: ['order', 'customer']
+    grandTotal:
+      groups: ['order', 'customer']
+    store:
+      groups: ['order', 'customer']
+    status:
+      groups: ['order', 'customer']
+    scheduledReturn:
+      groups: ['order', 'customer']
+    returnedDateTime:
+      groups: ['order', 'customer']
+    createdAt:
+      groups: ['order', 'customer']
+    updatedAt:
+      groups: ['order', 'customer']
+    items:
+      groups: ['order']
+    pickupStation:
+      groups: ['order']
+    returnStation:
+      groups: ['order']
+    customer:
+      groups: ['order']      

@@ -15,7 +15,7 @@ networks:
 x-service-php: &service-php
   build:
     context: .
-    target: target_product_php
+    target: target_php
   healthcheck:
     interval: 10s
     timeout: 3s
@@ -33,7 +33,7 @@ x-service-php-product: &service-php-product
 x-service-nginx: &service-nginx
   build:
     context: .
-    target: target_product_nginx
+    target: target_nginx
   restart: always
   networks:
     - frontend
@@ -48,25 +48,27 @@ x-service-nginx-proxy: &service-nginx-proxy
 # ##### Services
 # #############################################################
 services:
-  product-php:
-    container_name: product-php
+  php:
+    container_name: php
+    depends_on:
+      - mysql
     <<: *service-php-product
     volumes:
       - ./:/srv/app:rw,cached
 
-  product-nginx:
-    container_name: product-nginx
+  nginx:
+    container_name: nginx
     <<: *service-nginx
     depends_on:
-      - product-php
+      - php
     volumes:
       - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
       - ./public:/srv/app/public:ro
     environment:
       - VIRTUAL_HOST=${HOST_NAME:?HOST_NAME is not set or empty}
 
-  product-nginx-proxy:
-    container_name: product-nginx-proxy
+  nginx-proxy:
+    container_name: nginx-proxy
     <<: *service-nginx-proxy
     ports:
       - target: 80
@@ -77,35 +79,8 @@ services:
       - ./docker/nginx-proxy/vhost.d:/etc/nginx/vhost.d:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
-  ## Supervisor for consumers and retries
-  supervisord:
-    <<: *service-php-product
-    volumes:
-      - ./:/srv/app:rw,cached
-    container_name: product-supervisord
-    command: ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
-    networks:
-      - backend
-
-  ## RabbitMQ
-  rabbitmq:
-    image: rabbitmq:3.8-management-alpine
-    container_name: product-rabbitmq
-    restart: always
-    environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:-admin}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS:-admin}
-    ports:
-      # The standard AMQP protocol port
-      - target: 5672
-        published: 5672
-      # HTTP management UI
-      - target: 15672
-        published: 15672
-    networks:
-      - backend
-
   mysql:
+    container_name: mysql
     platform: linux/x86_64
     image: mysql
     restart: always
@@ -113,9 +88,9 @@ services:
       - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=about-you-task
-      - MYSQL_USER=about-you
-      - MYSQL_PASSWORD=about-you
+      - MYSQL_DATABASE=roadsurfer_db
+      - MYSQL_USER=roadsurfer
+      - MYSQL_PASSWORD=roadsurfer
     volumes:
       - ./docker/mysql/data:/var/lib/mysql'
     networks:

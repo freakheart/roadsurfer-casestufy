@@ -1,0 +1,22 @@
+App\Entity\Product:
+  attributes:
+    id:
+      groups: ['product', 'offer']
+    slug:
+      groups: ['product', 'offer']
+    name:
+      groups: ['product', 'offer']
+    shortDescription:
+      groups: ['product', 'offer']
+    description:
+      groups: ['product', 'offer']
+    price:
+      groups: ['product', 'offer']
+    createdAt:
+      groups: ['product', 'offer']
+    updatedAt:
+      groups: ['product', 'offer']
+    categories:
+      groups: ['product']
+    stations:
+      groups: ['product']

@@ -1,0 +1,14 @@
+App\Entity\Station:
+  attributes:
+    id:
+      groups: ['station', 'product']
+    name:
+      groups: ['station', 'product']
+    products:
+      groups: ['station']
+    offers:
+      groups: ['station']
+    pickupOrders:
+      groups: ['station']
+    returnOrders:
+      groups: ['station']

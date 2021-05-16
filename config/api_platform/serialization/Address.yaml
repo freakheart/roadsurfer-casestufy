@@ -1,0 +1,28 @@
+App\Entity\Address:
+  attributes:
+    id:
+      groups: ['address', 'customer', 'order']
+    company:
+      groups: ['address', 'customer', 'order']
+    salutation:
+      groups: ['address', 'customer', 'order']
+    firstName:
+      groups: ['address', 'customer', 'order']
+    lastName:
+      groups: ['address', 'customer', 'order']
+    street:
+      groups: ['address', 'customer', 'order']
+    postcode:
+      groups: ['address', 'customer', 'order']
+    city:
+      groups: ['address', 'customer', 'order']
+    country:
+      groups: ['address', 'customer', 'order']
+    phoneNumber:
+      groups: ['address', 'customer', 'order']
+    fax:
+      groups: ['address', 'customer', 'order']
+    createdAt:
+      groups: ['address', 'customer', 'order']
+    updatedAt:
+      groups: ['address', 'customer', 'order']

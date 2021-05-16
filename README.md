@@ -12,24 +12,27 @@ Configure the required variables in the .env file. Create a entry in your hosts 
 docker-compose up -d --build --remove-orphans
 ```
 
-### Check docker logs
+## Check docker logs
 ```bash
 docker-compose logs -f
 ```
 
 ## API
-Click [here](api.roadsurfer.de:8001/api/docs) to access the API. 
+Go to http://api.roadsurfer.de:8001/api/docs to access the API. 
 
 ### API Login
 Use these credentials to login and get your JWT token. 
 ```bash
 {
-  "username": "raodsurfer",
-  "password": "raodsurfer"
+  "username": "admin",
+  "password": "admin"
 }
 ```
 
-### Client Generation
+## Admin Dashboard
+Go to http://api.roadsurfer.de:8001/admin to access it.
+
+## Client Generation
 Generate the client using the command
 ```bash
 vendor/bin/jane-openapi generate --config-file=config/jane/open_api.php

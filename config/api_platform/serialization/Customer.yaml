@@ -1,0 +1,21 @@
+App\Entity\Customer:
+  attributes:
+    id:
+      groups: ['customer', 'order']
+    salutation:
+      groups: ['customer', 'order']
+    firstName:
+      groups: ['customer', 'order']
+    lastName:
+      groups: ['customer', 'order']
+    email:
+      groups: ['customer', 'order']
+    createdAt:
+      groups: ['customer', 'order']
+    updatedAt:
+      groups: ['customer', 'order']
+    addresses:
+      groups: ['customer', 'order']
+    orders:
+      groups: ['customer']
+      
