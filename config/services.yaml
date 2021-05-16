@@ -1,0 +1,49 @@
+imports:
+    - { resource: 'api_platform/filters/filters.yaml' }
+
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    _instanceof:
+        Psr\Log\LoggerAwareInterface:
+            calls:
+                - [ setLogger, [ '@logger' ] ]
+
+    gedmo.listener.sluggable:
+        class: Gedmo\Sluggable\SluggableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default, priority: 1 }
+        calls:
+            - [ setAnnotationReader, [ '@annotation_reader' ] ]
+
+    App\Repository\:
+        resource: '../src/Repository/'
+
+    App\Controller\:
+        resource: '../src/Controller/'
+        tags: ['controller.service_arguments']
+
+    App\Logger\LogItem: ~
+
+    App\Event\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+
+    App\OpenApi\JwtDecorator:
+        decorates: 'api_platform.openapi.factory'
+        autoconfigure: false
+
+    App\DataFixtures\:
+        resource: '../src/DataFixtures'
+        tags: [ 'doctrine.fixture.orm' ]
+
+    App\Security\Listener\LoginListener:
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityInteractiveLogin }
+
+    App\Security\LoginFormAuthenticator: ~

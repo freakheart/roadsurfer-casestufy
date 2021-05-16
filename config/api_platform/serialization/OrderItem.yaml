@@ -1,0 +1,16 @@
+App\Entity\OrderItem:
+  attributes:
+    id:
+      groups: ['order_item', 'order']
+    quantity:
+      groups: ['order_item', 'order']
+    price:
+      groups: ['order_item', 'order']
+    paymentMethod:
+      groups: ['order_item', 'order']
+    createdAt:
+      groups: ['order_item', 'order']
+    order:
+      groups: ['order_item']
+    product:
+      groups: ['order_item']

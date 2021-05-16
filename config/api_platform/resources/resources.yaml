@@ -1,0 +1,74 @@
+App\Entity\Address:
+    shortName: 'Address'
+    description: 'Addresses'
+    attributes:
+        normalization_context:
+            groups: ['address']
+        denormalization_context:
+            groups: ['address']
+
+App\Entity\Category:
+    shortName: 'Category'
+    description: 'Categories'
+    attributes:
+        normalization_context:
+            groups: ['category']
+        denormalization_context:
+            groups: ['category']
+
+App\Entity\Customer:
+    shortName: 'Customer'
+    description: 'Customers'
+    attributes:
+        normalization_context:
+            groups: ['customer']
+        denormalization_context:
+            groups: ['customer']
+
+App\Entity\Offer:
+    shortName: 'Offer'
+    description: 'Offers'
+    attributes:
+        normalization_context:
+            groups: ['offer']
+        denormalization_context:
+            groups: ['offer']
+
+App\Entity\Order:
+    shortName: 'Order'
+    description: 'Orders'
+    attributes:
+        normalization_context:
+            groups: ['order']
+        denormalization_context:
+            groups: ['order']
+
+App\Entity\OrderItem:
+    shortName: 'OrderItem'
+    description: 'OrderItems'
+    attributes:
+        normalization_context:
+            groups: ['order_item']
+        denormalization_context:
+            groups: ['order_item']
+
+App\Entity\Product:
+    shortName: 'Product'
+    description: 'Products'
+    attributes:
+        normalization_context:
+            groups: ['product']
+        denormalization_context:
+            groups: ['product']
+
+App\Entity\Station:
+    shortName: 'Station'
+    description: 'Stations'
+    attributes:
+        normalization_context:
+            groups: ['station']
+        denormalization_context:
+            groups: ['station']
+
+
+

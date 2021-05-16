@@ -1,0 +1,97 @@
+version: '3.5'
+
+# #############################################################
+# ##### Networks
+# #############################################################
+networks:
+  backend:
+    driver: bridge
+  frontend:
+    driver: bridge
+
+# #############################################################
+# ##### Anchors
+# #############################################################
+x-service-php: &service-php
+  build:
+    context: .
+    target: target_php
+  healthcheck:
+    interval: 10s
+    timeout: 3s
+    retries: 3
+    start_period: 30s
+  networks:
+    - frontend
+    - backend
+  restart: always
+
+x-service-php-product: &service-php-product
+  <<: *service-php
+  env_file: .env
+
+x-service-nginx: &service-nginx
+  build:
+    context: .
+    target: target_nginx
+  restart: always
+  networks:
+    - frontend
+
+x-service-nginx-proxy: &service-nginx-proxy
+  image: nginxproxy/nginx-proxy:alpine
+  restart: always
+  networks:
+    - frontend
+
+# #############################################################
+# ##### Services
+# #############################################################
+services:
+  php:
+    container_name: php
+    depends_on:
+      - mysql
+    <<: *service-php-product
+    volumes:
+      - ./:/srv/app:rw,cached
+
+  nginx:
+    container_name: nginx
+    <<: *service-nginx
+    depends_on:
+      - php
+    volumes:
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./public:/srv/app/public:ro
+    environment:
+      - VIRTUAL_HOST=${HOST_NAME:?HOST_NAME is not set or empty}
+
+  nginx-proxy:
+    container_name: nginx-proxy
+    <<: *service-nginx-proxy
+    ports:
+      - target: 80
+        published: 8001
+        protocol: tcp
+    volumes:
+      - ./docker/nginx-proxy/certs:/etc/nginx/certs:ro
+      - ./docker/nginx-proxy/vhost.d:/etc/nginx/vhost.d:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  mysql:
+    container_name: mysql
+    platform: linux/x86_64
+    image: mysql
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=roadsurfer_db
+      - MYSQL_USER=roadsurfer
+      - MYSQL_PASSWORD=roadsurfer
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql'
+    networks:
+      - backend
