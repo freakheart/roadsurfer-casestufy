@@ -11,10 +11,13 @@ use App\Entity\OrderItem;
 use App\Entity\Product;
 use App\Entity\Station;
 use App\Entity\User;
+use DateInterval;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Exception;
 use Faker\Generator;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Validator\Constraints\Date;
 
 class AppFixtures extends Fixture
 {
@@ -164,6 +167,9 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 
+    /**
+     * @throws Exception
+     */
     private function loadOrders(ObjectManager $manager): void
     {
         for ($i = 0; $i < 20; ++$i) {
@@ -171,14 +177,19 @@ class AppFixtures extends Fixture
             $orderItem = new OrderItem();
             $orderItem->setProduct($product);
             $orderItem->setPrice($product->getPrice());
+            $orderItem->setName($product->getName());
             $orderItem->setQuantity($this->generator->numberBetween(1, 50));
+
+            $pickupDate = $this->generator->dateTimeBetween('now', '+5 days');
+            $returnDate = $this->generator->dateTimeBetween('+6 days', '+20 days');
 
             $order = new Order();
             $order->setCustomer($this->getReference('customer-'.$i));
             $order->setPickupStation($this->getReference('station-'.$i));
             $order->setReturnStation($this->getReference('station-'.$i));
             $order->setCustomer($this->getReference('customer-'.$i));
-            $order->setScheduledReturn(new \DateTime('now'));
+            $order->setScheduledPickupDate($pickupDate->setTime(0, 0));
+            $order->setScheduledReturnDate($returnDate->setTime(0, 0));
             $order->setGrandTotal($product->getPrice());
             $order->addItem($orderItem);
 

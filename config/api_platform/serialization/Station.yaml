@@ -1,9 +1,9 @@
 App\Entity\Station:
   attributes:
     id:
-      groups: ['station', 'product']
+      groups: ['station', 'product', 'order']
     name:
-      groups: ['station', 'product']
+      groups: ['station', 'product', 'order']
     products:
       groups: ['station']
     offers:

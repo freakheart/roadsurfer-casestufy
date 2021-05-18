@@ -37,6 +37,14 @@ App\Entity\Offer:
 App\Entity\Order:
     shortName: 'Order'
     description: 'Orders'
+    collectionOperations:
+        get:
+            filters: [ 'order.date_filter',
+                       'order.pickup_station_filter',
+                       'order.return_station_filter',
+                       'order.station_filter'
+            ]
+        post: ~
     attributes:
         normalization_context:
             groups: ['order']
@@ -46,6 +54,10 @@ App\Entity\Order:
 App\Entity\OrderItem:
     shortName: 'OrderItem'
     description: 'OrderItems'
+    collectionOperations:
+        get:
+            filters: [ 'orderItem.order_filter', 'orderItem.station_filter']
+        post: ~
     attributes:
         normalization_context:
             groups: ['order_item']

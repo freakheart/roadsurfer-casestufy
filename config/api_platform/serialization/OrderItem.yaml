@@ -1,9 +1,11 @@
 App\Entity\OrderItem:
   attributes:
     id:
-      groups: ['order_item', 'order']
+      groups: ['order_item', 'order', 'station']
     quantity:
-      groups: ['order_item', 'order']
+      groups: ['order_item', 'order', 'station']
+    name:
+      groups: ['order_item', 'order', 'station']
     price:
       groups: ['order_item', 'order']
     paymentMethod:
@@ -13,4 +15,4 @@ App\Entity\OrderItem:
     order:
       groups: ['order_item']
     product:
-      groups: ['order_item']
+      groups: ['order_item', 'order']

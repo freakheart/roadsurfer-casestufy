@@ -33,6 +33,11 @@ class OrderItem
     private Product $product;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private ?string $name = null;
+
+    /**
      * @ORM\Column(type="integer", options={"unsigned": true})
      */
     private ?int $quantity = null;
@@ -85,5 +90,21 @@ class OrderItem
     public function setPaymentMethod(?string $paymentMethod): void
     {
         $this->paymentMethod = $paymentMethod;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string|null $name
+     */
+    public function setName(?string $name): void
+    {
+        $this->name = $name;
     }
 }

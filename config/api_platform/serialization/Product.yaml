@@ -1,17 +1,17 @@
 App\Entity\Product:
   attributes:
     id:
-      groups: ['product', 'offer']
+      groups: ['product', 'offer', 'order']
     slug:
-      groups: ['product', 'offer']
+      groups: ['product', 'offer', 'order']
     name:
-      groups: ['product', 'offer']
+      groups: ['product', 'offer', 'order', 'order_item']
     shortDescription:
-      groups: ['product', 'offer']
+      groups: ['product', 'offer', 'order']
     description:
-      groups: ['product', 'offer']
+      groups: ['product', 'offer', 'order']
     price:
-      groups: ['product', 'offer']
+      groups: ['product', 'offer', 'order']
     createdAt:
       groups: ['product', 'offer']
     updatedAt:

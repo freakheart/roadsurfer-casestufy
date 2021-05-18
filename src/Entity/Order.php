@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\TimestampableTrait;
+use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -59,12 +60,17 @@ class Order
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private ?DateTimeInterface $scheduledReturn = null;
+    private ?DateTime $scheduledPickupDate = null;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private ?DateTimeInterface $returnedDateTime = null;
+    private ?DateTime $scheduledReturnDate = null;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private ?DateTime $returnedDate = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Station", inversedBy="pickupOrders", cascade={"persist"})
@@ -153,26 +159,6 @@ class Order
         }
     }
 
-    public function getScheduledReturn(): ?DateTimeInterface
-    {
-        return $this->scheduledReturn;
-    }
-
-    public function setScheduledReturn(?DateTimeInterface $scheduledReturn): void
-    {
-        $this->scheduledReturn = $scheduledReturn;
-    }
-
-    public function getReturnedDateTime(): ?DateTimeInterface
-    {
-        return $this->returnedDateTime;
-    }
-
-    public function setReturnedDateTime(?DateTimeInterface $returnedDateTime): void
-    {
-        $this->returnedDateTime = $returnedDateTime;
-    }
-
     public function getPickupStation(): Station
     {
         return $this->pickupStation;
@@ -191,5 +177,53 @@ class Order
     public function setReturnStation(Station $returnStation): void
     {
         $this->returnStation = $returnStation;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getScheduledPickupDate(): ?DateTime
+    {
+        return $this->scheduledPickupDate;
+    }
+
+    /**
+     * @param DateTime|null $scheduledPickupDate
+     */
+    public function setScheduledPickupDate(?DateTime $scheduledPickupDate): void
+    {
+        $this->scheduledPickupDate = $scheduledPickupDate;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getScheduledReturnDate(): ?DateTime
+    {
+        return $this->scheduledReturnDate;
+    }
+
+    /**
+     * @param DateTime|null $scheduledReturnDate
+     */
+    public function setScheduledReturnDate(?DateTime $scheduledReturnDate): void
+    {
+        $this->scheduledReturnDate = $scheduledReturnDate;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getReturnedDate(): ?DateTime
+    {
+        return $this->returnedDate;
+    }
+
+    /**
+     * @param DateTime|null $returnedDate
+     */
+    public function setReturnedDate(?DateTime $returnedDate): void
+    {
+        $this->returnedDate = $returnedDate;
     }
 }

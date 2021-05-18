@@ -1,0 +1,48 @@
+services:
+  order.date_filter:
+    parent: 'api_platform.doctrine.orm.date_filter'
+    arguments: [ { scheduledPickupDate: ~, scheduledReturnDate: ~ } ]
+    tags: [ { name: 'api_platform.filter' } ]
+    autowire: false
+    autoconfigure: false
+    public: false
+
+  order.pickup_station_filter:
+    parent: 'api_platform.doctrine.orm.search_filter'
+    arguments: [ { pickupStation: 'exact' } ]
+    tags: [ { name: 'api_platform.filter' } ]
+    autowire: false
+    autoconfigure: false
+    public: false
+
+  order.return_station_filter:
+    parent: 'api_platform.doctrine.orm.search_filter'
+    arguments: [ { returnStation: 'exact' } ]
+    tags: [ { name: 'api_platform.filter' } ]
+    autowire: false
+    autoconfigure: false
+    public: false
+
+  orderItem.order_filter:
+    parent: 'api_platform.doctrine.orm.search_filter'
+    arguments: [ { order: 'exact' } ]
+    tags: [ { name: 'api_platform.filter' } ]
+    autowire: false
+    autoconfigure: false
+    public: false
+
+  orderItem.station_filter:
+    parent: 'api_platform.doctrine.orm.search_filter'
+    arguments: [ { station: 'exact' } ]
+    tags: [ { name: 'api_platform.filter' } ]
+    autowire: false
+    autoconfigure: false
+    public: false
+
+  order.station_filter:
+    parent: 'api_platform.doctrine.orm.search_filter'
+    arguments: [ { station: 'exact' } ]
+    tags: [ { name: 'api_platform.filter' } ]
+    autowire: false
+    autoconfigure: false
+    public: false

@@ -8,16 +8,18 @@ App\Entity\Order:
       groups: ['order', 'customer']
     status:
       groups: ['order', 'customer']
-    scheduledReturn:
-      groups: ['order', 'customer']
-    returnedDateTime:
-      groups: ['order', 'customer']
+    scheduledPickupDate:
+      groups: ['order', 'customer', 'station']
+    scheduledReturnDate:
+      groups: ['order', 'customer', 'station']
+    returnedDate:
+      groups: ['order', 'customer', 'station']
     createdAt:
       groups: ['order', 'customer']
     updatedAt:
       groups: ['order', 'customer']
     items:
-      groups: ['order']
+      groups: ['order', 'station']
     pickupStation:
       groups: ['order']
     returnStation:
